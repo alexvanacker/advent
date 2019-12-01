@@ -23,6 +23,49 @@
   (-> (slurp f)
       (clojure.string/split-lines)))
 
+
+(defn contains-exact-n? [elts n]
+  (contains? (set (vals (frequencies elts)))
+             n))
+
+(defn sol [elts]
+  (reduce
+   (fn [{:keys [two three]} x]
+     (cond
+       (and
+          (contains-exact-n? x 2)
+          (contains-exact-n? x 3)) {:two (inc two), :three (inc three)}
+       (contains-exact-n? x 2) {:two (inc two), :three three}
+       (contains-exact-n? x 3) {:two two, :three (inc three)}
+       :else {:two two, :three three}
+       )) {:two 0, :three 0} elts))
+
+
+(defn sol20191 [mass]
+  (- (quot mass 3)
+     2))
+
+(defn sol20191_complete []
+  (reduce +
+          (map (comp sol20191 read-string)
+               (read-file "/home/alexvanacker/git/advent/resources/2019_1.txt"))))
+
+
+(defn mod_fuel_requirements
+  ([mass]
+   (mod_fuel_requirements (sol20191 mass) (list (sol20191 mass))))
+   ([mass reqs]
+    (let [req (sol20191 mass)]
+      (println (str "computin mass " mass))
+      (if (>= 0 req)
+        (reduce + reqs)
+        (recur req (conj reqs req))))))
+
+(defn sol2019_2_complete []
+  (reduce +
+          (map (comp mod_fuel_requirements read-string)
+               (read-file "/home/alexvanacker/git/advent/resources/2019_1.txt"))))
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
