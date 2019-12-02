@@ -1,7 +1,8 @@
 (ns advent.core
   (:gen-class)
   (:require [clojure.set :as set]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [advent.utils :as utils]))
 
 (defn sum_reduce [[freq_set prev] x]
   (let [res (+ prev x)]
@@ -48,8 +49,7 @@
 (defn sol20191_complete []
   (reduce +
           (map (comp sol20191 read-string)
-               (read-file "/home/alexvanacker/git/advent/resources/2019_1.txt"))))
-
+               (utils/read-file "2019_1.txt"))))
 
 (defn mod_fuel_requirements
   ([mass]
@@ -64,7 +64,7 @@
 (defn sol2019_2_complete []
   (reduce +
           (map (comp mod_fuel_requirements read-string)
-               (read-file "/home/alexvanacker/git/advent/resources/2019_1.txt"))))
+               (utils/read-file "2019_1.txt"))))
 
 (defn -main
   "I don't do a whole lot ... yet."
