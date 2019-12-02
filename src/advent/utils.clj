@@ -7,3 +7,10 @@
   [filename]
   (-> (slurp (io/resource filename))
       (clojure.string/split-lines)))
+
+(defn read-file-int-line
+  "Function that reads a file that represents an array of integers in one line and returns that array."
+  [filename]
+  (-> (slurp (io/resource filename))
+      (clojure.string/trim)
+      (#(clojure.string/split % #","))))
