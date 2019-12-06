@@ -14,3 +14,15 @@
   (-> (slurp (io/resource filename))
       (clojure.string/trim)
       (#(clojure.string/split % #","))))
+
+
+(defn split-comma [string]
+  (clojure.string/split string #","))
+
+(defn read-file-lines-split
+  "Reads a file, and splits each line with `,`."
+  [filename]
+  (as-> (slurp (io/resource filename)) v
+      (clojure.string/split-lines v)
+      (map split-comma v)))
+ 
