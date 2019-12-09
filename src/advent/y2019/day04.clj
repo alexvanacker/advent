@@ -6,7 +6,7 @@
 
 (defn has-exactly-two-same-digits-conseq? [nbr]
   (some? (seq (filter #(= 2
-                     (count (get % 0)))
+                          (count (get % 0)))
                       (re-seq #"(\d)\1+" nbr)))))
   ; Leaving this here as I'd like to understand why it didn't work in the end
   ;(if-let [doubles (re-seq #"(\d)\1" nbr)]
@@ -36,8 +36,6 @@
 (defn sol1 []
   (let [input (range 357253 892943)]
     (count (filter matches input))))
-
-
 
 (deftest sol2-1
   (is (= true
